@@ -2,6 +2,7 @@
 import sys
 import cv2
 import numpy as np
+from matplotlib import pyplot as plt
 
 # Create MSER (Maximally Stable External Regions) object
 mser = cv2.MSER_create()
@@ -15,7 +16,7 @@ def draw_contours(img, contours):
 def find_texts(img):
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     blur = cv2.GaussianBlur(gray, (5, 5), 0)
-    thres = cv2.adaptiveThreshold(blur, 255, 1, 1, 11, 2)
+    thres = cv2.adaptiveThreshold(blur, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, 11, 2)
 
     mask = np.zeros((img.shape[0], img.shape[1], 1), dtype=np.uint8)
     
@@ -26,13 +27,16 @@ def find_texts(img):
     
     # Mask and remove all non-text contents
     mask = draw_contours(mask, hulls)        
-    text_only = cv2.bitwise_and(img, img, mask=mask)
-    
-    cv2.imshow('img', text_only)
+    text_only = cv2.bitwise_and(thres, thres, mask=mask)
 
-    while cv2.waitKey(0) != 27:
-        pass
-    cv2.destroyAllWindows()
+    mng = plt.get_current_fig_manager()
+    mng.resize(*mng.window.maxsize())
+    
+    plt.subplot(121),plt.imshow(img),plt.title('Original')
+    plt.xticks([]), plt.yticks([])
+    plt.subplot(122),plt.imshow(text_only),plt.title('Blurred')
+    plt.xticks([]), plt.yticks([])
+    plt.show()
     
 img = cv2.imread("img/1.jpg")
 find_texts(img)
