@@ -20,4 +20,4 @@ Web interface is implemented in web.py using flask. This script loads the traine
 * **[Jeevan Thapa](https://github.com/jeevan9111)** <jeevanthapa9111@gmail.com>
 * **[Rupesh Shrestha](https://github.com/rupesh1439)** <rupesh.shrestha96742@gmail.com>
 * **[Simon Dahal](https://github.com/simonsd054)** <simonsd054@gmail.com>
-* **[Yogesh Rai](https://github.com/ygsh.spcry5)** <ygsh.spcry5@gmail.com>
+* **[Yogesh Rai](https://github.com/ygshspcry5)** <ygsh.spcry5@gmail.com>
