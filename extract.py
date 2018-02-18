@@ -2,12 +2,13 @@
 import sys
 import cv2
 import numpy as np
-from matplotlib import pyplot as plt
 
 # Create MSER (Maximally Stable External Regions) object
 mser = cv2.MSER_create()
 #mser.setMinArea(50)
 #mser.setMaxArea(800)
+
+image_ratio = 10/30
 
 def draw_contours(img, contours):
     for contour in contours:
@@ -31,14 +32,16 @@ def find_texts(img):
 #    text_only = cv2.bitwise_and(thres, thres, mask=mask)
 
     hulls = []
+    contour_sizes = [(cv2.contourArea(contour), contour) for contour in regions]
+    biggest_contour = max(contour_sizes, key=lambda x: x[0])[1]
     for coor in regions:
         bbox = cv2.boundingRect(coor)
         hull = cv2.convexHull(coor.reshape(-1, 1, 2))
         x, y, w, h = bbox
-#        cv2.drawContours(img, [hull], -1, (255, 255, 255), -1)
         cv2.rectangle(thres, (x, y), (x+w, y+h), (255, 0, 0), 1)
         text = img[y:y+h, x:x+w]
         hulls.append(bbox)
+#        cv2.drawContours(img, [hull], -1, (255, 255, 255), -1)
         
     result = thres
 
