@@ -1,17 +1,63 @@
-from flask import Flask
+from flask import Flask, render_template, request, redirect, url_for, send_from_directory, flash
+from flask_bootstrap import Bootstrap
+from flask_wtf import Form
+from wtforms import FileField, SubmitField, StringField
+from wtforms.validators import Required
+from werkzeug.utils import secure_filename
+import os
+
+# TODO: couldn't make bootstrap work
+
+UPLOAD_FOLDER = "./static/img/"
+ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
 app = Flask(__name__)
+bootstrap = Bootstrap(app)
+# just a random string
+app.config['SECRET_KEY'] = 'y8fwpI0IABFV1P8ovbmN'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-@app.route('/')
+class TestForm(Form):
+    file = FileField('File Upload: ', validators=[Required()])
+    submit = SubmitField('Submit')
+
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route('/', methods=['GET', 'POST'])
 def home():
 
-    # 1. load the template for homepage containing
-    # 2. form for file upload and submit/predict button
-    # 3. upload the file and save in the database
-    # 4. redirect to the predict page
-    # 5. use POST method to take the file
+    # 1. load the template for homepage containing - done
+    # 2. form for file upload and submit/predict button - done
+    # 3. upload the file and save in the (-database)/file - done
+    # 4. redirect to the predict page 
+    # 5. use POST method to take the file - done
 
-    return "This webpage contains the homepage"
+    if request.method == 'POST':
+
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            flash('No file part')
+            return redirect(request.url)
+
+        file = request.files['file']
+        # if user does not select file, browser also
+        # submit a empty part without filename
+        if file.filename == '':
+            flash('No selected file')
+            return redirect(request.url)
+
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            return redirect(url_for('uploaded_file', filename=filename))
+                                
+    form = TestForm()
+    return render_template('home.html', form=form)
+
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 @app.route('/predict')
 def predict():
