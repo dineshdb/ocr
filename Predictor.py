@@ -3,22 +3,10 @@ os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 import tensorflow as tf
 
 import numpy as np
-from keras.datasets import mnist
-from keras.models import Sequential
-from keras.layers import Dense
-from keras.layers import Dropout
-from keras.layers import Flatten
-from keras.layers.convolutional import Conv2D
-from keras.layers.convolutional import MaxPooling2D
-from keras.utils import np_utils
-from keras import backend as K
+
 from keras.models import load_model
 import scipy.special
 import scipy.misc as misc
-import matplotlib.pyplot as plt
-
-
-
 
 
 #pre_trained model with accuracy 83%
@@ -45,9 +33,7 @@ def predict(path):
 	out = model.predict(new)
 	prediction = get_label((np.argmax(out,axis=1))[0])
 	return (prediction)
+print(predict('images/c.jpg'))
+
 #prediction of the single test data
-
-print(predict('c.jpg'))
-
-
 
