@@ -10,7 +10,7 @@ import scipy.misc as misc
 
 
 #pre_trained model with accuracy 83%
-model = load_model('model.h5')
+model = load_model('my_model.h5')
 
 #get the label from index 
 def get_label(index):
@@ -33,7 +33,3 @@ def predict(path):
 	out = model.predict(new)
 	prediction = get_label((np.argmax(out,axis=1))[0])
 	return (prediction)
-print(predict('images/c.jpg'))
-
-#prediction of the single test data
-
