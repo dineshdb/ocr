@@ -13,6 +13,7 @@ from keras.layers.convolutional import MaxPooling2D
 from keras.utils import np_utils
 from keras import backend as K
 from keras.models import load_model 
+import glob 
 
 #CNN model
 def Model():
@@ -31,7 +32,37 @@ def Model():
     model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accuracy'])
     return model
 
-#dataset of 74K samples
+#training the dataset
+#although the main directory contains datasets for digits, but this model trains only the characters. 
+directory = str() #provide the main directory 
+main_path = glob.glob(directory)
+p = str()
+count = 0
+csv_dataset = []
+label = 0
+total = 0
+for x in main_path:
+    path = glob.glob(x+'/*')
+    for addrs in path:
+        addrs = glob.glob(addrs+'/*')
+        for addr in addrs:
+            img = misc.imread(addr,flatten=True)
+            img_array= misc.imresize(img,(28,28))
+            img_data = img_array.reshape(784)
+            record = np.append(label,img_data)
+            csv_dataset.append(record)
+            total+=1
+        label+=1
+    label = 0
+#saving the dataset image arrays in csv file
+array_of_csv_dataset = np.array(csv_dataset)
+array_of_csv_dataset = array_of_csv_dataset.reshape((total,785))
+np.random.shuffle(array_of_csv_dataset)
+np.savetxt("dataset.csv",array_of_csv_dataset,fmt = '%d',delimiter = ',',newline = ' \n')
+
+
+
+#csv dataset of 74K samples
 dataset_file = open("dataset.csv",'r')
 dataset_list = dataset_file.readlines()
 dataset_file.close()
