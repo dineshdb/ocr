@@ -37,7 +37,6 @@ def Model():
 directory = str() #provide the main directory 
 main_path = glob.glob(directory)
 p = str()
-count = 0
 csv_dataset = []
 label = 0
 total = 0
