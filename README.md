@@ -13,6 +13,7 @@ The model that is trained in previous step is loaded by the predict.py script an
 
 ## Web Interface
 Web interface is implemented in web.py using flask. This script loads the trained model, listens for connections, extracts images for each text, predicts them using the trained model and then returns the result back to the front-end(web front-end).
+Run ``python3 web.py``
 
 ## Authors
 * **[Dinesh Bhattarai](https://github.com/dineshdb)** <dbhattarai252@gmail.com> 
