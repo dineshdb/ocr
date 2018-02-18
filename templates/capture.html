@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block container %}
+    <div id="camera-view">
+      <video id="video" style="margin: auto; border: 20px groove #808000;" width="880" height="600" autoplay></video>
+      <button class="btn btn-lg btn-success" id="takePicture" onclick="takePicture()">Capture</button>
+      <button class="btn btn-lg btn-success" id="flip-button">Flip</button>
+      <button class="btn btn-lg btn-success" id="flip-button" onclick="mirrorVideo()">Mirror</button>
+    </div>
+    <div id="picture-view">
+      <canvas id="canvas" ></canvas>   
+    </div>
+{% endblock %}
