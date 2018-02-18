@@ -25,6 +25,9 @@ def send_js(path):
 def send_css(path):
     return send_from_directory('public/css', path)
     
+@app.route('/capture')
+def capture():
+    return render_template('capture.html')
 
 @app.route('/')
 def get_home():
