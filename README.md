@@ -6,7 +6,7 @@ Web Interface for OCR.
 
 ## Training the model
 Training of the model happens in train.py
-The required training data is supposed to be placed inside ``data/`` dir. Place the datasets in given dir and run ``python3 train.py``. This script will train a neural network based on these datasets and create a trained model that will be saved in ``build/`` directory.
+The required training data is supposed to be placed inside ``data/`` dir. Place the datasets in given dir and run ``python3 train.py``. This script will train a neural network based on these datasets and create a trained model that will be saved in ``build/`` directory. The dataset for training is available in http://www.ee.surrey.ac.uk/CVSSP/demos/chars74k/ .
 
 ## Using the model
 The model that is trained in previous step is loaded by the predict.py script and characters are predicted using this script.
