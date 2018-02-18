@@ -1,30 +1,36 @@
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory, flash
-from flask_bootstrap import Bootstrap
-from flask_wtf import Form
 from wtforms import FileField, SubmitField, StringField
 from wtforms.validators import Required
 from werkzeug.utils import secure_filename
-import os
+import os	
 
 # TODO: couldn't make bootstrap work
 
-UPLOAD_FOLDER = "./web/public/uploads/"
+UPLOAD_FOLDER = "./public/uploads/"
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
 app = Flask(__name__)
-bootstrap = Bootstrap(app)
 # just a random string
 app.config['SECRET_KEY'] = 'y8fwpI0IABFV1P8ovbmN'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
-class TestForm(Form):
-    file = FileField('File Upload: ', validators=[Required()])
-    submit = SubmitField('Submit')
-
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/js/<path:path>')
+def send_js(path):
+    return send_from_directory('public/js', path)
+    
+@app.route('/css/<path:path>')
+def send_css(path):
+    return send_from_directory('public/css', path)
+    
+
+@app.route('/')
+def get_home():
+    return render_template('index.html')
+    
+@app.route('/', methods=['POST'])
 def home():
 
     # 1. load the template for homepage containing - done
@@ -50,10 +56,8 @@ def home():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('uploaded_file', filename=filename))
-                                
-    form = TestForm()
-    return render_template('home.html', form=form)
+            return redirect(url_for('uploaded_file', filename=filename))                               
+    return redirect("/")
 
 @app.route('/uploads/<filename>')
 def uploaded_file(filename):
