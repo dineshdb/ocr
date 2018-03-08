@@ -4,6 +4,7 @@ const img = document.querySelector("#source")
 const inputFile = document.querySelector("#fileInput")
 let front = false, mirror = false
 var constraints = { video: { facingMode: (front? "user" : "environment") } };
+let fileId;
 
 img.onclick= function(e){
     inputFile.click()
@@ -35,11 +36,17 @@ inputFile.onchange = function(e) {
   }).then(response => response.json()
   ).then( res => fetch('/predict/' + res.id)
   ).then(res => console.log(res)
-  ).catch(
+  ).then(res => res.json()
+  ).then(res => {
+  	res.data.forEach(function(dat){
+  		console.log(dat.coor)
+  		console.log(dat.label)
+    	}
+    )}).catch(
     error => console.log(error) // Handle the error response object
   );
-
 }
+
 
 function mirrorVideo(){
     mirror = !mirror

@@ -56,6 +56,7 @@ def home():
     return jsonify({"error":"Could not handle that request"}), 305
 
 
+
 @app.route('/predict/<id>')
 def predict_id(id):
     path = os.path.join(app.config['UPLOAD_FOLDER'], id)
