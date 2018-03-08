@@ -6,7 +6,6 @@ let front = false, mirror = false
 var constraints = { video: { facingMode: (front? "user" : "environment") } };
 let fileId;
 var slider = document.getElementById('slider');
-let minArea = 0, maxArea = 0
 noUiSlider.create(slider, {
 	start: [20, 80],
 	connect: true,
@@ -30,31 +29,21 @@ inputFile.onchange = function(e) {
   fetch('/', {
     method: 'POST',
     body: form,
-  }).then(response => response.json()
-  ).then( res => fetch('/predict/' + res.id)
-  ).then(res => res.json()
-  ).then(res => {
-  	context.clearRect(0, 0, canvas.width, canvas.height);
-  	res.data.forEach(function(dat){
-  		let [x, y] = dat.coor
-  		context.fillText(dat.label,x, y)
-    	}
-    )}).catch(console.log)
+  }).then(response => response.json()).then( res => fileId = res.id).catch(console.log)
 }
 
-function mirrorVideo(){
-    mirror = !mirror
-    video.classList.toggle("camera-flip")
-}
-function setupCamera(){
-	navigator.mediaDevices.getUserMedia(constraints)
-    		.then(stream => video.srcObject = stream)
-    		.then(()=>{
-    		}).catch(console.log)
-}
-function takePicture(){
-   context.drawImage(video, 0, 0, canvas.width, canvas.height);
-   video.pause()
-   video.srcObject.getVideoTracks().forEach(track => track.stop());
+function fetchResult(id, minArea = 20, maxArea = 80){
+	fileId = id
+	return fetch('/predict/' + id + '?min=' + minArea + '&max='+ maxArea).then(res => res.json()).then(res => {
+ 	 	context.clearRect(0, 0, canvas.width, canvas.height);
+ 	 	res.data.forEach(function(dat){
+ 	 		let [x, y] = dat.coor
+ 	 		context.fillText(dat.label,x, y)
+    		})
+    	})
 }
 
+function regenerate(e){
+	let [min, max] = slider.noUiSlider.get()
+	return fetchResult(fileId, min, max).catch(console.log)
+}
