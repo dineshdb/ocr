@@ -3,11 +3,12 @@ const button = document.querySelector("#clickbutton")
 const canvas = document.querySelector("#canvas")
 const context = canvas.getContext('2d')
 const img = document.querySelector("#picture-view img")
+const inputFile = document.querySelector("#fileInput")
 
 let front = false, mirror = false
 var constraints = { video: { facingMode: (front? "user" : "environment") } };
 
-document.getElementById('flip-button').onclick = function() { front = !front; };
+//document.getElementById('flip-button').onclick = function() { front = !front; };
 
 function mirrorVideo(){
     mirror = !mirror
@@ -24,4 +25,8 @@ function takePicture(){
    video.pause()
    video.srcObject.getVideoTracks().forEach(track => track.stop());
 }
-setupCamera()
+
+function onImageClick(e){
+	
+}
+

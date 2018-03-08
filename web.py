@@ -19,21 +19,13 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route('/js/<path:path>')
-def send_js(path):
-    return send_from_directory('public/js', path)
-    
-@app.route('/css/<path:path>')
+@app.route('/<path:path>')
 def send_css(path):
-    return send_from_directory('public/css', path)
+    return send_from_directory('public', path)
     
-@app.route('/capture')
-def capture():
-    return render_template('capture.html')
-
 @app.route('/')
 def get_home():
-    return render_template('index.html')
+    return send_from_directory('public', 'index.html')
     
 @app.route('/', methods=['POST'])
 def home():
