@@ -12,7 +12,9 @@
     height: 100%;
 }
 
+.percent50{
+    width: 50%;
+}
 #source{
-	width: 50%;
-	height: 50%;
+	height: 100%;
 }

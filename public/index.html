@@ -7,15 +7,16 @@
     <title>OCR</title>
   </head>
   <body>
-    <div class="container-fluid" id="container">
-	<img id="source" onclick="onImageClick()" class="container-fluid" width="400" height="400">
+    <div class="container-fluid col-md-12" id="container">
+      <div class="col-md-6">
+	<img id="source" onclick="onImageClick()" class="col-md-6">
 	<input type="file" id="fileInput" style="display:none"/>
-	<canvas id="canvas"/>
+      </div>
+      <div class="col-md-6">
+	<canvas id="canvas">
+      </div>
     </div>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.2.0/dropzone.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.2.0/dropzone.js"></script>
-
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/main.css"/>
     <script src="/js/main.js"></script>
   </body>
