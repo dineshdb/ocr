@@ -5,10 +5,13 @@ const inputFile = document.querySelector("#fileInput")
 let front = false, mirror = false
 var constraints = { video: { facingMode: (front? "user" : "environment") } };
 img.onclick= function(e){
-	console.log("hello", e)	
+	inputFile.click()
 }
 
-//document.getElementById('flip-button').onclick = function() { front = !front; };
+inputFile.onchange = function(e) {
+    var url = URL.createObjectURL(e.target.files[0]);
+    img.src = url;
+}
 
 function mirrorVideo(){
     mirror = !mirror
