@@ -7,9 +7,6 @@ import numpy as np
 from keras.models import load_model
 import scipy.special
 import scipy.misc as misc
-from keras.models import load_model
-import scipy.special
-import scipy.misc as misc
 
 # Create MSER (Maximally Stable External Regions) object
 mser = cv2.MSER_create()
@@ -18,6 +15,8 @@ mser = cv2.MSER_create()
 
 #pre_trained model with accuracy 83%
 model = load_model('my_model.h5')
+model._make_predict_function()
+graph = tf.get_default_graph()
 
 #get the label from index 
 def get_label(index):
@@ -30,12 +29,13 @@ def get_label(index):
 
 
 #predictor function
-def predict(path):
-	addr = path
+def predict(addr):
 	img = misc.imread(addr,flatten=True)
 	img_array= misc.imresize(img,(28,28))
+
 	img = img_array.reshape(1,28,28)
 	new = [img]*2
+
 	new = np.array(new)
 	out = model.predict(new)
 	prediction = get_label((np.argmax(out,axis=1))[0])
@@ -62,13 +62,17 @@ def find_texts(url):
         x, y, w, h = bbox
         cv2.rectangle(thres, (x, y), (x+w, y+h), (255, 0, 0), 1)
         letter = thres[y:y+h, x:x+w]
-        resized = misc.imresize(letter,(28,28))
+        resized = cv2.resize(letter,(28,28))
 
-        img_array = np.array(resized)
-        reshaped = img_array.reshape(1, 1,28,28)
-        new = np.array(reshaped)
+#        img_array = np.array(resized)
+#        new = img_array.reshape(1, 1,28,28)
 
-        label = model.predict(new)
+        img = resized.reshape(1,28,28)
+        new = [img]*2
+
+        new = np.array(new)
+        with graph.as_default():
+            label = model.predict(new)
         prediction = get_label(np.argmax(label,axis=1)[0])
         res.append({"coor" : bbox, "label": prediction})
 
