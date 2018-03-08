@@ -2,8 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, send_from_
 from wtforms import FileField, SubmitField, StringField
 from wtforms.validators import Required
 from werkzeug.utils import secure_filename
-import os	
-import md5
+import os
 
 import predictor
 
@@ -61,20 +60,10 @@ def home():
     return Response("{'id':'error'}", status=401, mimetype='application/json')
 
 
-def get_md5(filename):
-    with open(filename, 'rb') as f:
-        m = hashlib.md5()
-        while True
-            data = f.read(8192)
-            if not data:
-                break
-            m.update(data)
-        return m.hexdigest()
-
 @app.route('/predict/')
 def predict():
 
-    # 1. get the uploaded file from database 
+    # 1. get the uploaded file from database
     # 2. get the trained model from the database
     # 3. predict the file using the model
     # 4. send predicted data to the client
