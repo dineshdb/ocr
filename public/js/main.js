@@ -1,10 +1,7 @@
-const video = document.querySelector('#video')
-const button = document.querySelector("#clickbutton")
 const canvas = document.querySelector("#canvas")
 const context = canvas.getContext('2d')
 const img = document.querySelector("#source")
 const inputFile = document.querySelector("#fileInput")
-
 let front = false, mirror = false
 var constraints = { video: { facingMode: (front? "user" : "environment") } };
 img.onclick= function(e){
