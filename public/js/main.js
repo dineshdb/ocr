@@ -2,11 +2,14 @@ const video = document.querySelector('#video')
 const button = document.querySelector("#clickbutton")
 const canvas = document.querySelector("#canvas")
 const context = canvas.getContext('2d')
-const img = document.querySelector("#picture-view img")
+const img = document.querySelector("#source")
 const inputFile = document.querySelector("#fileInput")
 
 let front = false, mirror = false
 var constraints = { video: { facingMode: (front? "user" : "environment") } };
+img.onclick= function(e){
+	console.log("hello", e)	
+}
 
 //document.getElementById('flip-button').onclick = function() { front = !front; };
 
@@ -24,9 +27,5 @@ function takePicture(){
    context.drawImage(video, 0, 0, canvas.width, canvas.height);
    video.pause()
    video.srcObject.getVideoTracks().forEach(track => track.stop());
-}
-
-function onImageClick(e){
-	
 }
 
