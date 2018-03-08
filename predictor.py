@@ -48,8 +48,8 @@ def find_texts(url, min, max):
     mask = np.zeros((gray.shape[0], gray.shape[1], 1), dtype=np.uint8)
     
 
-    mser.setMaxArea(max * 50)
-    mser.setMinArea(min * 50)
+    mser.setMaxArea(max)
+    mser.setMinArea(min)
     regions, bboxes = mser.detectRegions(thres)
 
     # Mask and remove all non-text contents
