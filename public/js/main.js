@@ -5,6 +5,15 @@ const inputFile = document.querySelector("#fileInput")
 let front = false, mirror = false
 var constraints = { video: { facingMode: (front? "user" : "environment") } };
 let fileId;
+var slider = document.getElementById('slider');
+noUiSlider.create(slider, {
+	start: [20, 80],
+	connect: true,
+	range: {
+		'min': 0,
+		'max': 100
+	}
+});
 
 img.onclick= function(e){
     inputFile.click()
