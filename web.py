@@ -60,8 +60,13 @@ def home():
 @app.route('/predict/<id>')
 def predict_id(id):
     path = os.path.join(app.config['UPLOAD_FOLDER'], id)
-    result = find_texts(path)
-    return jsonify({"data" : result}), 200
+    min = request.args.get('min')
+    max = request.args.get('max')
+    max = int(float(max))
+    min = int(float(min))
+
+    result = find_texts(path, min, max)
+    return jsonify({"data" : result, "min" : min, "max" : max}), 200
 
 if __name__ == '__main__':
     app.run(debug=True)

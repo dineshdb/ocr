@@ -10,8 +10,6 @@ import scipy.misc as misc
 
 # Create MSER (Maximally Stable External Regions) object
 mser = cv2.MSER_create()
-#mser.setMinArea(50)
-#mser.setMaxArea(800)
 
 #pre_trained model with accuracy 83%
 model = load_model('my_model.h5')
@@ -32,7 +30,7 @@ def get_label(index):
 def predict(addr):
 	img = misc.imread(addr,flatten=True)
 	img_array= misc.imresize(img,(28,28))
-
+        
 	img = img_array.reshape(1,28,28)
 	new = [img]*2
 
@@ -41,14 +39,17 @@ def predict(addr):
 	prediction = get_label((np.argmax(out,axis=1))[0])
 	return prediction
 
-def find_texts(url):
+def find_texts(url, min, max):
     gray = cv2.imread(url, 0)
     blur = cv2.GaussianBlur(gray, (5, 5), 0)
     thres = cv2.adaptiveThreshold(blur,255,1,1,11,2)
     thres = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, 11, 2)
 
     mask = np.zeros((gray.shape[0], gray.shape[1], 1), dtype=np.uint8)
+    
 
+    mser.setMaxArea(max * 50)
+    mser.setMinArea(min * 50)
     regions, bboxes = mser.detectRegions(thres)
 
     # Mask and remove all non-text contents
@@ -64,7 +65,6 @@ def find_texts(url):
 
 #        img_array = np.array(resized)
 #        new = img_array.reshape(1, 1,28,28)
-
         img = resized.reshape(1,28,28)
         new = [img]*2
 

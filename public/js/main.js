@@ -6,15 +6,20 @@ let front = false, mirror = false
 var constraints = { video: { facingMode: (front? "user" : "environment") } };
 let fileId;
 var slider = document.getElementById('slider');
+let generateButton = document.getElementById("generateButton")
 noUiSlider.create(slider, {
-	start: [20, 80],
+	start: [50, 800],
 	connect: true,
 	range: {
 		'min': 0,
-		'max': 100
+		'max': 2000
 	}
 });
 
+slider.noUiSlider.on('update', (e) =>{
+	let [min, max] = slider.noUiSlider.get()
+	generateButton.innerHTML = `Gen(${min >> 0}, ${max >> 0})`
+})
 img.onclick= function(e){
     inputFile.click()
 }
@@ -45,5 +50,6 @@ function fetchResult(id, minArea = 20, maxArea = 80){
 
 function regenerate(e){
 	let [min, max] = slider.noUiSlider.get()
-	return fetchResult(fileId, min, max).catch(console.log)
+
+	return fetchResult(fileId, min *30, max * 30).catch(console.log)
 }
