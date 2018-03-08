@@ -4,23 +4,11 @@ const img = document.querySelector("#source")
 const inputFile = document.querySelector("#fileInput")
 let front = false, mirror = false
 var constraints = { video: { facingMode: (front? "user" : "environment") } };
+let fileId;
 
 img.onclick= function(e){
     inputFile.click()
 }
-
-const upload = (e) => {
-  fetch('/', { 
-    method: 'POST',       
-    body: e 
-  }).then(
-    response => response.json() 
-  ).then(
-    success => console.log(success) // Handle the success response object
-  ).catch(
-    error => console.log(error) // Handle the error response object
-  );
-};
 
 inputFile.onchange = function(e) {
     var url = URL.createObjectURL(e.target.files[0]);
@@ -29,16 +17,19 @@ inputFile.onchange = function(e) {
     form.append('id', Date.now())
     form.append('files', inputFile.files[0])
 //    upload(e.target.files[0]);
-  fetch('/', { 
-    method: 'POST',       
+  fetch('/', {
+    method: 'POST',
     body: form,
   }).then(response => response.json()
   ).then( res => fetch('/predict/' + res.id)
-  ).then(res => console.log(res)
-  ).catch(
-    error => console.log(error) // Handle the error response object
-  );
-
+  ).then(res => res.json()
+  ).then(res => {
+  	context.clearRect(0, 0, canvas.width, canvas.height);
+  	res.data.forEach(function(dat){
+  		let [x, y] = dat.coor
+  		context.fillText(dat.label,x, y)
+    	}
+    )}).catch(console.log)
 }
 
 function mirrorVideo(){
@@ -49,7 +40,7 @@ function setupCamera(){
 	navigator.mediaDevices.getUserMedia(constraints)
     		.then(stream => video.srcObject = stream)
     		.then(()=>{
-    		}).catch(console.log)        
+    		}).catch(console.log)
 }
 function takePicture(){
    context.drawImage(video, 0, 0, canvas.width, canvas.height);

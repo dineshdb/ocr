@@ -50,8 +50,6 @@ def find_texts(url):
     mask = np.zeros((gray.shape[0], gray.shape[1], 1), dtype=np.uint8)
 
     regions, bboxes = mser.detectRegions(thres)
-    # [Convex Hull](https://en.wikipedia.org/wiki/Convex_hull) gives the smallest convext set that contains the detected letter
-    hulls = [cv2.convexHull(p.reshape(-1, 1, 2)) for p in regions]
 
     # Mask and remove all non-text contents
     res = []
@@ -62,6 +60,7 @@ def find_texts(url):
         x, y, w, h = bbox
         cv2.rectangle(thres, (x, y), (x+w, y+h), (255, 0, 0), 1)
         letter = thres[y:y+h, x:x+w]
+
         resized = cv2.resize(letter,(28,28))
 
 #        img_array = np.array(resized)
@@ -77,3 +76,5 @@ def find_texts(url):
         res.append({"coor" : bbox, "label": prediction})
 
     return res
+
+#print(find_texts("images/a.jpg"))
