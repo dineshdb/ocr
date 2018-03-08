@@ -60,7 +60,6 @@ def find_texts(url):
         x, y, w, h = bbox
         cv2.rectangle(thres, (x, y), (x+w, y+h), (255, 0, 0), 1)
         letter = thres[y:y+h, x:x+w]
-
         resized = cv2.resize(letter,(28,28))
 
 #        img_array = np.array(resized)
