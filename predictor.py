@@ -28,6 +28,19 @@ def get_label(index):
         label = index + 97
     return chr(label)
 
+
+#predictor function
+def predict(path):
+	addr = path
+	img = misc.imread(addr,flatten=True)
+	img_array= misc.imresize(img,(28,28))
+	img = img_array.reshape(1,28,28)
+	new = [img]*2
+	new = np.array(new)
+	out = model.predict(new)
+	prediction = get_label((np.argmax(out,axis=1))[0])
+	return prediction
+
 def find_texts(url):
     gray = cv2.imread(url, 0)
     blur = cv2.GaussianBlur(gray, (5, 5), 0)

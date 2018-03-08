@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, redirect, url_for, send_from_directory, flash, Response, jsonify
-from wtforms import FileField, SubmitField, StringField
 from werkzeug.utils import secure_filename
 import os
 
@@ -9,8 +8,6 @@ UPLOAD_FOLDER = "./public/uploads/"
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
 
 app = Flask(__name__)
-# just a random string
-app.config['SECRET_KEY'] = 'y8fwpI0IABFV1P8ovbmN'
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 def allowed_file(filename):
@@ -55,8 +52,8 @@ def home():
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], file_id))
-            return Response("{'id':'" + file_id +  "'}", status=200, mimetype='application/json')
-    return Response("{'id':'error'}", status=401, mimetype='application/json')
+            return jsonify({"id": file_id }), 200
+    return jsonify({"error":"Could not handle that request"}), 305
 
 
 @app.route('/predict/<id>')

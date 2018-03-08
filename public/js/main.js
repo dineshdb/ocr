@@ -32,10 +32,9 @@ inputFile.onchange = function(e) {
   fetch('/', { 
     method: 'POST',       
     body: form,
-  }).then(
-    response => response.json() 
-  ).then(
-    success => console.log(success) // Handle the success response object
+  }).then(response => response.json()
+  ).then( res => fetch('/predict/' + res.id)
+  ).then(res => console.log(res)
   ).catch(
     error => console.log(error) // Handle the error response object
   );
