@@ -1,10 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for, send_from_directory, flash, Response
+from flask import Flask, render_template, request, redirect, url_for, send_from_directory, flash, Response, jsonify
 from wtforms import FileField, SubmitField, StringField
-from wtforms.validators import Required
 from werkzeug.utils import secure_filename
 import os
 
-import predictor
+from predictor import find_texts
 
 UPLOAD_FOLDER = "./public/uploads/"
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
@@ -60,16 +59,11 @@ def home():
     return Response("{'id':'error'}", status=401, mimetype='application/json')
 
 
-@app.route('/predict/')
-def predict():
-
-    # 1. get the uploaded file from database
-    # 2. get the trained model from the database
-    # 3. predict the file using the model
-    # 4. send predicted data to the client
-    # 5. display the original image and the text
-
-    return "This function predicts the model"
+@app.route('/predict/<id>')
+def predict_id(id):
+    path = os.path.join(app.config['UPLOAD_FOLDER'], id)
+    result = find_texts(path)
+    return jsonify(result), 200
 
 if __name__ == '__main__':
     app.run(debug=True)

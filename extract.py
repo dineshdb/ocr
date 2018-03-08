@@ -8,7 +8,7 @@ import scipy.misc as misc
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL']='2'
 import tensorflow as tf
-
+from predictor import predict
 # Create MSER (Maximally Stable External Regions) object
 mser = cv2.MSER_create()
 #mser.setMinArea(50)
@@ -19,40 +19,19 @@ image_ratio = 10/30
 #pre_trained model with accuracy 83%
 model = load_model('my_model.h5')
 
-#get the label from index 
-def get_label(index):
-    if index < 26:
-        label = index + 65    
-    else:
-        index=index%26
-        label = index + 97
-    return chr(label)
-
-
-#predictor function
-def predict(path):
-	img = misc.imread(addr,flatten=True)
-	img_array= misc.imresize(img,(28,28))
-	img = img_array.reshape(1,28,28)
-	new = [img]*2
-	new = np.array(new)
-	out = model.predict(new)
-	prediction = get_label((np.argmax(out,axis=1))[0])
-	return (prediction)
-
 def draw_contours(img, contours):
     for contour in contours:
         cv2.drawContours(img, [contour], -1, (255, 255, 255), -1)
     return img
-    
+
 def find_texts(url):
     gray = cv2.imread(url, 0)
     blur = cv2.GaussianBlur(gray, (5, 5), 0)
     thres = cv2.adaptiveThreshold(blur,255,1,1,11,2)
     thres = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, 11, 2)
-  
+
     mask = np.zeros((gray.shape[0], gray.shape[1], 1), dtype=np.uint8)
-   
+
     regions, bboxes = mser.detectRegions(thres)
     # [Convex Hull](https://en.wikipedia.org/wiki/Convex_hull) gives the smallest convext set that contains the detected letter
     hulls = [cv2.convexHull(p.reshape(-1, 1, 2)) for p in regions]
