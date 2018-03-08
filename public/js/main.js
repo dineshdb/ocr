@@ -51,5 +51,5 @@ function fetchResult(id, minArea = 20, maxArea = 80){
 function regenerate(e){
 	let [min, max] = slider.noUiSlider.get()
 
-	return fetchResult(fileId, min *30, max * 30).catch(console.log)
+	return fetchResult(fileId, min, max).catch(console.log)
 }
