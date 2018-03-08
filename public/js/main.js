@@ -4,13 +4,42 @@ const img = document.querySelector("#source")
 const inputFile = document.querySelector("#fileInput")
 let front = false, mirror = false
 var constraints = { video: { facingMode: (front? "user" : "environment") } };
+
 img.onclick= function(e){
 	inputFile.click()
 }
 
+const upload = (e) => {
+  fetch('/', { 
+    method: 'POST',       
+    body: e 
+  }).then(
+    response => response.json() 
+  ).then(
+    success => console.log(success) // Handle the success response object
+  ).catch(
+    error => console.log(error) // Handle the error response object
+  );
+};
+
 inputFile.onchange = function(e) {
     var url = URL.createObjectURL(e.target.files[0]);
     img.src = url;
+    let form = new FormData()
+    form.append('id', Date.now())
+    form.append('files', inputFile.files[0])
+//    upload(e.target.files[0]);
+  fetch('/', { 
+    method: 'POST',       
+    body: form,
+  }).then(
+    response => response.json() 
+  ).then(
+    success => console.log(success) // Handle the success response object
+  ).catch(
+    error => console.log(error) // Handle the error response object
+  );
+
 }
 
 function mirrorVideo(){
