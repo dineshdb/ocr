@@ -6,6 +6,7 @@ let front = false, mirror = false
 var constraints = { video: { facingMode: (front? "user" : "environment") } };
 let fileId;
 var slider = document.getElementById('slider');
+let minArea = 0, maxArea = 0
 noUiSlider.create(slider, {
 	start: [20, 80],
 	connect: true,

@@ -12,13 +12,12 @@
     height: 100%;
 }
 
-#slider{
+#bottom{
 	position: absolute;
 	bottom:0;
 	left:0;
 	right:0;
 	z-index:99;
-
 }
 #source{
     display: block;

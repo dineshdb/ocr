@@ -7,9 +7,14 @@
     <title>OCR</title>
   </head>
   <body>
-	<div id="slider">
-
-	</div>
+  	<div id="bottom" class="container-fluid">
+  	    <div class="row">
+  		<div class="col-md-10" id="slider"></div>
+  		<button class="col-md-2" id="genbutton"> Generate </button>
+  	    </div>
+  	</div>
+	
+	
     <div class="container-fluid" id="container">
       <div class="row">
 	      <div class="col-md-6 col-lg-6">
@@ -19,11 +24,7 @@
 	      <div class="col-md-6 col-lg-6">
 		<canvas id="canvas">
 	      </div>
-    </div>
-    <div class="row">
-    	<div class="col-md-6 col-lg-6">
-    		<input type="range" min="1" max="100" value="50">
-    	</div>
+      </div>
     </div>
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/nouislider.min.css"/>
