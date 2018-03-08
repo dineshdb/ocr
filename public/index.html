@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>OCR</title>
+  </head>
+  <body>
+  	<div id="bottom" class="container-fluid">
+  	    <div class="row">
+  		<div class="col-md-10" id="slider"></div>
+  		<button class="col-md-2" onclick="regenerate()" id="generateButton"/>
+  	    </div>
+  	</div>
+	
+	
+    <div class="container-fluid" id="container">
+      <div class="row">
+	      <div class="col-md-6 col-lg-6">
+		<img id="source" onclick=onImageClick class="col-md-6" src="/img/lorem.jpg">
+		<input type="file" id="fileInput" style="display:none"/>
+	      </div>
+	      <div class="col-md-6 col-lg-6">
+		<canvas id="canvas">
+	      </div>
+      </div>
+    </div>
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/nouislider.min.css"/>
+    <link rel="stylesheet" href="/css/main.css"/>
+    <script src="/js/nouislider.min.js"></script>
+    <script src="/js/main.js"></script>
+  </body>
+</html>

@@ -1,3 +1,5 @@
 flask
-flask_wtf
-flask_bootstrap
+tensorflow
+numpy
+keras
+h5py

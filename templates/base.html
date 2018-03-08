@@ -7,16 +7,10 @@
     <title>OCR</title>
   </head>
   <body>
-    <div class="navbar navbar-fixed-top" role="navigation">
-      <div class="container">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="{{ url_for('home')}}">OCR</a>          
-          <a class="navbar-brand" href="{{ url_for('capture')}}">Capture</a>         
-        </div>
-      </div>
-    </div>
-    <div class="container">
-    {% block container %} {% endblock %}
+    <div class="container-fluid" id="container">
+	<img id="source" onclick="onImageClick()" class="container-fluid" width="400" height="400">
+	<input type="file" id="fileInput" style="display:none"/>
+	<canvas id="canvas"/>
     </div>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.2.0/dropzone.css">
