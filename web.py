@@ -3,10 +3,9 @@ from wtforms import FileField, SubmitField, StringField
 from wtforms.validators import Required
 from werkzeug.utils import secure_filename
 import os	
+import md5
 
 import predictor
-
-# TODO: couldn't make bootstrap work
 
 UPLOAD_FOLDER = "./public/uploads/"
 ALLOWED_EXTENSIONS = set(['png', 'jpg', 'jpeg', 'gif'])
@@ -18,6 +17,10 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
 @app.route('/<path:path>')
 def send_css(path):
@@ -33,8 +36,10 @@ def home():
     # 1. load the template for homepage containing - done
     # 2. form for file upload and submit/predict button - done
     # 3. upload the file and save in the (-database)/file - done
-    # 4. redirect to the predict page 
-    # 5. use POST method to take the file - done
+    # 4. use POST method to take the file - done
+    # 5. Return predicted values
+    # 6. Display values
+    # 7. Readjust parameters for rescan
 
     if request.method == 'POST':
 
@@ -55,11 +60,18 @@ def home():
             return Response("{'id':'" + file_id +  "'}", status=200, mimetype='application/json')
     return Response("{'id':'error'}", status=401, mimetype='application/json')
 
-@app.route('/uploads/<filename>')
-def uploaded_file(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
 
-@app.route('/predict')
+def get_md5(filename):
+    with open(filename, 'rb') as f:
+        m = hashlib.md5()
+        while True
+            data = f.read(8192)
+            if not data:
+                break
+            m.update(data)
+        return m.hexdigest()
+
+@app.route('/predict/')
 def predict():
 
     # 1. get the uploaded file from database 

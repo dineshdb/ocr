@@ -7,8 +7,10 @@
     <title>OCR</title>
   </head>
   <body>
-    <div class="container-fluid">
-    {% block container %} {% endblock %}
+    <div class="container-fluid" id="container">
+	<img id="source" onclick="onImageClick()" class="container-fluid" width="400" height="400">
+	<input type="file" id="fileInput" style="display:none"/>
+	<canvas id="canvas"/>
     </div>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.2.0/dropzone.css">

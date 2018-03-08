@@ -6,7 +6,7 @@ let front = false, mirror = false
 var constraints = { video: { facingMode: (front? "user" : "environment") } };
 
 img.onclick= function(e){
-	inputFile.click()
+    inputFile.click()
 }
 
 const upload = (e) => {
