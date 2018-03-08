@@ -1,3 +1,7 @@
 .camera-flip{
     transform: scaleX(-1);
 }
+
+.container{
+    width:100%;
+}

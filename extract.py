@@ -49,7 +49,7 @@ def find_texts(url):
     gray = cv2.imread(url, 0)
     blur = cv2.GaussianBlur(gray, (5, 5), 0)
     thres = cv2.adaptiveThreshold(blur,255,1,1,11,2)
-#    thres = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, 11, 2)
+    thres = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, 11, 2)
   
     mask = np.zeros((gray.shape[0], gray.shape[1], 1), dtype=np.uint8)
    
@@ -63,7 +63,6 @@ def find_texts(url):
 #    biggest_contour = max(contour_sizes, key=lambda x: x[0])[1]
     for coor in regions:
         bbox = cv2.boundingRect(coor)
-        hull = cv2.convexHull(coor.reshape(-1, 1, 2))
         x, y, w, h = bbox
         cv2.rectangle(thres, (x, y), (x+w, y+h), (255, 0, 0), 1)
         letter = thres[y:y+h, x:x+w]
@@ -76,8 +75,12 @@ def find_texts(url):
         label = model.predict(new)
         prediction = get_label(np.argmax(label,axis=1)[0])
         res.append({"x" : x, "y" : y, "label": prediction})
-
+        
+    print(res)
+      
+    cv2.imshow("img", thres)
+    cv2.waitKey(0)
 
     return res
     
-print(find_texts("img/2.jpg"))
+print(find_texts("images/a.jpg"))

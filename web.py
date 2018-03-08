@@ -4,6 +4,8 @@ from wtforms.validators import Required
 from werkzeug.utils import secure_filename
 import os	
 
+import predictor
+
 # TODO: couldn't make bootstrap work
 
 UPLOAD_FOLDER = "./public/uploads/"
