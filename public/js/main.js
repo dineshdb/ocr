@@ -13,7 +13,7 @@ noUiSlider.create(slider, {
 	connect: true,
 	range: {
 		'min': 0,
-		'max': 2000
+		'max': 6000
 	}
 });
 

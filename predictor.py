@@ -40,19 +40,19 @@ def predict(addr):
 	return prediction
 
 def find_texts(url, min, max):
-    gray = cv2.imread(url, 0)
-    blur = cv2.GaussianBlur(gray, (5, 5), 0)
-    thres = cv2.adaptiveThreshold(blur,255,1,1,11,2)
-    thres = cv2.adaptiveThreshold(gray, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, 11, 2)
+    thres = cv2.imread(url, 0)
+#    thres = cv2.GaussianBlur(thres, (5, 5), 0)
+#    thres = cv2.adaptiveThreshold(thres,255,1,1,11,2)
+    #thres = cv2.adaptiveThreshold(thres, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, 11, 2)
 
-    mask = np.zeros((gray.shape[0], gray.shape[1], 1), dtype=np.uint8)
-    
+    # Mask and remove all non-text contents
+    mask = np.zeros((thres.shape[0], thres.shape[1], 1), dtype=np.uint8)
+    thres = cv2.bitwise_not(thres, thres, mask=mask)
 
     mser.setMaxArea(max)
     mser.setMinArea(min)
     regions, bboxes = mser.detectRegions(thres)
 
-    # Mask and remove all non-text contents
     res = []
 #    contour_sizes = [(cv2.contourArea(contour), contour) for contour in regions]
 #    biggest_contour = max(contour_sizes, key=lambda x: x[0])[1]
@@ -61,12 +61,13 @@ def find_texts(url, min, max):
         x, y, w, h = bbox
         cv2.rectangle(thres, (x, y), (x+w, y+h), (255, 0, 0), 1)
         letter = thres[y:y+h, x:x+w]
-        resized = cv2.resize(letter,(28,28))
+        resized = cv2.resize(letter,(28,28), interpolation=cv2.INTER_AREA)
+#        resized = cv2.bitwise_not(resized, resized, mask= mask)
 
-#        img_array = np.array(resized)
-#        new = img_array.reshape(1, 1,28,28)
-        img = resized.reshape(1,28,28)
-        new = [img]*2
+        img_array = np.array(resized)
+        new = img_array.reshape(1, 1,28,28)
+#        img = resized.reshape(1,28,28)
+#        new = [img]*2
 
         new = np.array(new)
         with graph.as_default():
@@ -74,6 +75,7 @@ def find_texts(url, min, max):
         prediction = get_label(np.argmax(label,axis=1)[0])
         res.append({"coor" : bbox, "label": prediction})
 
+#    cv2.imshow("resu;t", thres)
+#    cv2.waitKey(0)
+    print(str(res))
     return res
-
-#print(find_texts("images/a.jpg"))
