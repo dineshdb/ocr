@@ -1,8 +1,22 @@
 \documentclass[12pt,a4paper]{report}
 
-\usepackage[pdftex]{graphicx} %for embedding images
-\usepackage{url} %for proper url entries
+\usepackage[pdftex]{graphicx}
 \usepackage{glossaries}
+\usepackage{url}
+\usepackage{titlesec}
+\usepackage[utf8]{inputenc}
+\usepackage{enumitem}
+\usepackage{biblatex}
+\addbibresource{ocr.bib}
+
+\graphicspath{ {img/} }
+
+\titleformat{\chapter}
+  {\Large\bfseries} % format
+  {}                % label
+  {0pt}             % sep
+  {\huge}           % before-code
+
 
 
 \title{OCR using Neural Network}
@@ -13,7 +27,7 @@
 \include{coverpage}
 \include{title}
 
-\pagenumbering{roman} %numbering before main content starts
+\pagenumbering{roman}
 \input{./certificate.tex}
 \input{./abstract.tex}
 \input{./acknow.tex}
@@ -21,12 +35,13 @@
 \listoffigures
 
 \newpage
-\pagenumbering{arabic} %numbering before main content starts
+\pagenumbering{arabic}
 
-\input{./introduction.tex} %literature survey included in this
+\input{./introduction.tex}
+\input{./methodology.tex}
 \input{./work-done.tex}
-\input{./future-work.tex}
 \input{./conclusion.tex}
-\input{./ref.tex}
+\bibliographystyle{plain}
+\bibliography{make_own,sample2,...,samplen} 
 
 \end{document}

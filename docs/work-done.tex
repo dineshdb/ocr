@@ -1,17 +1,14 @@
-\chapter{Work Done}
+\chapter{Result}
+First we got our hands dirty with MNIST datasets and Neural Network with the help of the book Make Your Own Neural Network\cite{make_own}. The output from the model trained from this dataset for digits recognition was 97\%.
 
-\section{}
+Then we approached Optical Character Recognition problem with divide and conquer. We first enlisted all the possible algorithms/models. Then we shortlisted the models and bruteforced each model individually and compared the results. Again we reevaluated our models and tried to optimize our model further by parameter tuning. Then we finally compared the results and decided to use neural networks since it gave best result at reasonable latency.
 
-\subsection{<Sub-section title>}
+\section{Output}
+When we trained our model with MNIST dataset for digit recognition, it gave accuracy of 97\%. 
 
-\subsection{<Sub-section title>}
-some text\cite{citation-2-name-here}, some more text
+We used 74 k datasets for our training model. This dataset contains 74000 sets of data with 62 categories including capital and small letters and 10 digits. Thus trained model was firstly 83\% accurate. Later we improved it to 86\% accuracy with parameter tuning and optimizations.
 
-Refer figure \ref{fig:label}.
+\section{Comparision}
+Comparing the system with other available systems, our system performs decently. Most of the Optical Character Recognition Systems have accuracy in the range of 80-95\%. 
 
-\begin{figure}[htb]
-\centering
-\includegraphics[scale=0.3]{tu} % e.g. insert ./image for image.png in the working directory, adjust scale as necessary
-\caption{<Caption here>}
-\label{fig:label} % insert suitable label, this is used to refer to a fig from within the text as shown above
-\end{figure}
+However, we also developed a web front-end for our system which makes the system accessible to the end-users. Most of the other systems are just APIs or command line tools that are not so usable for the end users. In this regard, our systems stands out.
