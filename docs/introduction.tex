@@ -3,7 +3,7 @@
 \section{Background and Recent Research}
 Optical character recognition is the mechanical or electronics conversion of images of types, handwritten or printed text into machine-encoded text, whether from a scanned document, a photo of a document, a scene-photo or from subtitle text superimposed on an image. It is widely used as a form of information entry from printed paper data records from passport documents, invoices, bank statements, computerized receipts, business cards, mail, printouts of static-data, or any suitable documentation. It is a common method of digitizing printed texts so that they can be electronically edited, searched, stored more compactly, displayed online, and used in machine processes such as cognitive computing, machine translation, (extracted) text-to-speech, key data and text mining. OCR is a field of research in pattern recognition, artificial intelligence and computer vision.
 
-In the early days, the OCR systems needed to be trained with images of each characters, and worked on one font at a times. But now advance systems capable of producing high degree of recognition accuracy for most fonts are now common, and with support for a variety of digital image file format inputs. In 2006, Geoffry Hinton et al. published a paper [1] showing how to train a deep neural network capable of recognizing handwritten digits with state-of-the-art precision (>98\%). They branded this techniques “Deep learning”. Since then many advanced algorithms have been implemented not only to recognize but also to identify and segment texts in images. 
+In the early days, the OCR systems needed to be trained with images of each characters, and worked on one font at a times. But now advance systems capable of producing high degree of recognition accuracy for most fonts are now common, and with support for a variety of digital image file format inputs. In 2006, Geoffry Hinton et al. published a paper \autocite{bengio2009learning} showing how to train a deep neural network capable of recognizing handwritten digits with state-of-the-art precision (>98\%). They branded this techniques “Deep learning”. Since then many advanced algorithms have been implemented not only to recognize but also to identify and segment texts in images. 
 
 \subsection{Problem Statement}
 The major problem with the OCR systems today is that they are trained with only a small number of fonts and thus cannot predict accurately the characters written in various other fonts. The problem is even more serious in case of handwritten digits which are even harder to recognize as each individual has a completely different style of writing and thus a unique character representation in their writing. This makes the job of OCR systems much more difficult. 
@@ -27,7 +27,7 @@ There are OCR systems already in the market but they are very specific in their 
 This system is different from the present systems because it has been trained on various datasets consisting of letters in varieties of fonts, colors and sizes. It has been developed with the convolutional neural networks which are great for efficient learning of features from images and classifying them. Also a number of preprocessing is performed in the image before it is send to the prediction model. This considerably reduces the errors for the prediction model and thus improves its accuracy.
 
 \section{Literature Review}
-There are many methods that are applied in text extraction and recognition. Maximally Stable Extremal Regions along with canny edge detection has been used as a method of text detection in images [2]. The approach used by us is partly based on [3] which concerns only with the recognition of Devanagari characters using a CNN architecture. In addition to that an image pre-processor is used to enhance further the accuracy of the CNN architecture.
+There are many methods that are applied in text extraction and recognition. Maximally Stable Extremal Regions along with canny edge detection has been used as a method of text detection in images \autocite{Huang:2016:DAO:2964284.2967282}. The approach used by us is partly based on Deep learning based large scale handwritten Devanagari character recognition \autocite{ahok_deeplearn} which concerns only with the recognition of Devanagari characters using a CNN architecture. In addition to that an image pre-processor is used to enhance further the accuracy of the CNN architecture.
 
 We have tried to combine the concepts of the two in our system. 
     \subsection{Maximally Stable Extremal Regions and Canny Edge Detector}
@@ -61,7 +61,7 @@ The fully connected layer is used for the high-level reasoning in the neural net
 
 \begin{figure}[htb]
 \centering
-\includegraphics{220px-Typical_cnn}
+\includegraphics[scale=0.35]{220px-Typical_cnn}
 \caption{Typical CNN architecture}
 \end{figure}
 
