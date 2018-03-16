@@ -1,0 +1,57 @@
+\documentclass[12pt,a4paper]{report}
+
+\usepackage[pdftex]{graphicx}
+\graphicspath{ {img/} }
+
+
+\usepackage{titlesec}
+\usepackage[english]{babel}
+\usepackage{enumitem}          
+\usepackage[nottoc]{tocbibind}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[autostyle]{csquotes}
+\usepackage[hyperref=true,
+	    backend=bibtex,
+            url=false,
+            isbn=false,
+            backref=true,
+            style=numeric,
+            maxcitenames=3,
+            maxbibnames=100,
+            block=none]{biblatex}
+% always load after biblatex
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=black,bookmarksopen=true]{hyperref}
+\bibliography{references}
+
+\titleformat{\chapter}
+  {\Large\bfseries} % format
+  {}                % label
+  {0pt}             % sep
+  {\huge}           % before-code
+
+\title{OCR using Neural Network}
+
+\begin{document}
+\renewcommand\bibname{References}
+
+\include{coverpage}
+%\include{title}
+
+\pagenumbering{roman}
+%\input{./certificate.tex}
+\input{./acknow.tex}
+\input{./abstract.tex}
+\tableofcontents
+\listoffigures
+
+\newpage
+\pagenumbering{arabic}
+
+\input{./introduction.tex}
+\input{./methodology.tex}
+\input{./work-done.tex}
+\input{./conclusion.tex}
+\printbibliography
+\end{document}
