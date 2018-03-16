@@ -3,6 +3,7 @@
 \usepackage[pdftex]{graphicx}
 \graphicspath{ {img/} }
 
+
 \usepackage{titlesec}
 \usepackage[english]{babel}
 \usepackage{enumitem}          
@@ -20,6 +21,8 @@
             maxcitenames=3,
             maxbibnames=100,
             block=none]{biblatex}
+% always load after biblatex
+\usepackage[colorlinks=true,linkcolor=blue,urlcolor=black,bookmarksopen=true]{hyperref}
 \bibliography{references}
 
 \titleformat{\chapter}
